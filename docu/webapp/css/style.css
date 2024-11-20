@@ -1,0 +1,13 @@
+/* Enter your custom styles here */
+.bg_li ul li:nth-child(odd){
+    background: #f1f1f1;
+}
+td:has(.bg_color){
+    background: #eaf4ff;
+}
+.m-1{
+    margin: 1rem;
+}
+.pr-1{
+    padding-right: 1rem;
+}

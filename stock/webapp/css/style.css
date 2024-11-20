@@ -1,0 +1,32 @@
+/* Enter your custom styles here */
+.justify_between{
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.w_full{
+    width: 100%;
+}
+.mb_1{
+    margin-bottom: 1rem;
+}
+.w_full_c > div{
+    width: 100%;
+}
+td:has(.bg_color){
+    background: #eaf4ff;
+}
+.bold{
+    font-weight: 700 !important;
+}
+.btn{
+    display: block;
+    margin: 0 auto;
+}
+.btn * {
+    font-size : 12px;
+    color: #000;
+}
+.btn_close * {
+    color: #000 !important;
+}

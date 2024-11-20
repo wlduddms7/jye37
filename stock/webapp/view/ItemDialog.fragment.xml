@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+	xmlns:core="sap.ui.core">
+    <Dialog id="itemDialog" title="ITEM LIST">
+        
+        <t:Table rows="{stock>/StockItemSet}" id="docList2" class="sapUiResponsiveMargin" selectionMode="None"
+				paste="onPaste" ariaLabelledBy="title">
+            <t:columns >
+                <t:Column width="7rem" hAlign="Center">
+                    <Label text="자재코드" class="bold" />
+                    <t:template>
+                        <Text text="{stock>matnr}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem" hAlign="Center">
+                    <Label text="창고코드" class="bold" />
+                    <t:template>
+                        <Text text="{stock>scode}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="10rem" hAlign="Center">
+                    <Label text="생성일" class="bold" />
+                    <t:template>
+                        <!-- <Text text="{stock>bdatu}" wrapping="false" /> -->
+                          <Text text="{
+                                path: 'stock>bdatu_string',
+                                type: 'sap.ui.model.type.Date',
+                                formatOptions: {
+                                    style: 'long',
+                                    source: {
+                                    pattern: 'yyyy/MM/dd'
+                                        }
+                                    }
+                                }" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="창고명" class="bold" />
+                    <t:template>
+                        <Text text="{stock>sname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="">
+                    <Label text="자재명" class="bold" />
+                    <t:template>
+                        <Text text="{stock>maktx}" class="bg_color" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="7rem" hAlign="Center">
+                    <Label text="자재유형" class="bold" />
+                    <t:template>
+                        <Text text="{stock>mtart}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="7rem" hAlign="Center">
+                    <Label text="수량" class="bold" />
+                    <t:template>
+                        <Text text="{stock>i_rtptqua}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="7rem" hAlign="Center">
+                    <Label text="단위" class="bold" />
+                    <t:template>
+                        <Text text="{stock>meins}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+
+        <beginButton>
+            <Button class="btn_close"  icon="sap-icon://decline" press="onCloseDialog" />
+        </beginButton>
+    </Dialog>
+
+</core:FragmentDefinition>
