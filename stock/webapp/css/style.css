@@ -10,11 +10,14 @@
 .mb_1{
     margin-bottom: 1rem;
 }
+.p-1 section{
+    padding: 1rem
+}
 .w_full_c > div{
     width: 100%;
 }
 td:has(.bg_color){
-    background: #eaf4ff;
+    background: #f1f1f1;
 }
 .bold{
     font-weight: 700 !important;
@@ -27,6 +30,40 @@ td:has(.bg_color){
     font-size : 12px;
     color: #000;
 }
+.btn_black *{
+    font-size : 12px;
+    color: #000;
+}
+.btn_black:hover *{
+    color: #000 !important;
+}
 .btn_close * {
     color: #000 !important;
+}
+/* Enter your custom styles here */
+
+.marginPanel {
+    margin-top: 10px; /* 원하는 여백 값 */
+}
+
+.customToolbar {
+    background-color: #D8D8D8 !important;
+}
+
+.bold {
+    font-weight: 900;
+}
+
+.centeredText {
+    margin: 6px;
+}
+
+.table1 {
+    border-radius: 3px;
+}
+
+.fullHeightPanel {
+    height: calc(100vh - 1px); /* 화면 전체 높이에서 상단 여백 제외 */
+    display: flex;
+    flex-direction: column;
 }

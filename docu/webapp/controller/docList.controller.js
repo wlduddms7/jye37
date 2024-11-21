@@ -23,33 +23,12 @@ function (Controller, Filter, FilterOperator, ChartFormatter, Format, JSONModel,
                 }
             }); 
             this.getView().setModel(oModel_json, "Doc");
-            console.log(oModel_json);
 
-            ////// popover 
-            // Format.numericFormatter(ChartFormatter.getInstance());
-            // // set explored app's demo model on this sample
-            // var oModel = new JSONModel(this.settingsModel);
-            // oModel.setDefaultBindingMode(BindingMode.OneWay);
-            // this.getView().setModel(oModel);
-
-            // var oVizFrame = this.oVizFrame = this.getView().byId("idVizFrame");
-            // oVizFrame.setVizProperties({
-            //     title: {
-            //         visible: false
-            //     }
-            // });
-            // oVizFrame.setModel(oModel_json, "Doc");
-
-            // var oPopOver = this.getView().byId("idPopOver");
-            // oPopOver.connect(oVizFrame.getVizUid());
-            // oPopOver.setFormatString(ChartFormatter.DefaultPattern.STANDARDFLOAT);
-
-            // var that = this;
-            // dataModel.attachRequestCompleted(function() {
-            //     that.dataSort(this.getData());
-            // });
-
-
+            
+            var oVizChart = this.getView().byId("idVizFrame");
+            var oVizPopOver = this.getView().byId("idPopOver");
+            oVizPopOver.connect(oVizChart.getVizUid());
+            oVizPopOver.setFormatString(ChartFormatter.DefaultPattern.STANDARDCURRENCY.STANDARDFLOAT);
 
         },
         onItems: function(oEvent){
@@ -73,6 +52,33 @@ function (Controller, Filter, FilterOperator, ChartFormatter, Format, JSONModel,
             aFilter.push(oFilter); //검색조건을 배열에 담아준다
             oBinding.filter(aFilter); //검색조건을 실행
 
-        }
+        },
+        onOpenDialog : function(oEvent){
+            var oButton = oEvent.getSource();
+            var oContext = oButton.getParent().getBindingContext();   // 해당 코드를 통하여 ITEM의 필터조건 값을 가져옴
+
+            var vMblnr =  oContext.getProperty('Mblnr');
+
+            // 팝업창
+            if(!this.pDialog){
+                this.pDialog = this.loadFragment({
+                    name : "cl3.syncyoung.mm.doc.docu.view.ItemDialog"
+                });
+            }
+            this.pDialog.then(function(oDialog){
+                var oTable = oDialog.getContent()[0].getContent()[0];  // 다이얼로그 첫 번째 자식이 테이블이어야 함
+                if (oTable && oTable.isA("sap.ui.table.Table")) {
+                    var oBinding = oTable.getBinding("rows");
+                    // 필터 설정
+                    var aFilter = [ new Filter("Mblnr", FilterOperator.EQ, vMblnr )]
+                    oBinding.filter(aFilter);
+                }
+
+                oDialog.open();
+            });
+        },
+        onCloseDialog: function(){
+            this.byId("itemDialog").close();
+        },
     });
 });

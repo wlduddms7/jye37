@@ -1,97 +1,132 @@
 <mvc:View controllerName="cl3.syncyoung.mm.list.stock.controller.stockView"
-   
+   xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:t="sap.ui.table"
+    xmlns:vl="sap.ui.layout"
     
     >
-    <Page id="page" class="" title="{i18n>title}">
-        <t:Table rows="{/StockSet}" id="docList" class="sapUiResponsiveMargin" selectionMode="None"
-				paste="onPaste" ariaLabelledBy="title">
-            <!-- title -->
-            <t:extension>
-                <HBox class='justify_between mb_1 w_full_c'>
-                    <OverflowToolbar style="Clear" >
-                        <HBox class=" justify_between w_full">
-                            <Title id="title" text="재고 리스트" class="bold"/>
-                            <HBox >
-                                <Input id="IMatnr" placeholder="자재코드" width="15rem" />
-                                <Button icon="sap-icon://search" press="onSearch" />
-                            </HBox>
+    <Page id="page" class="sapUiContentPadding" title="{i18n>title}">
+        <vl:Grid defaultSpan="XL12 L12 M12 S12" width="100%">
+            <!-- 첫 번째 Panel -->
+            <Panel class="marginPanel">
+                <headerToolbar>
+                    <Toolbar class="customToolbar">
+                        <Label text="조회" design="Bold"/>
+                    </Toolbar>
+                </headerToolbar>
+                <VBox>
+                    <HBox>
+                        <Label text="자재코드　" class="centeredText" design="Bold"/>
+                        <!-- Input 요소들 -->
+                        <!-- <Input id="IMatnr" width="250px" placeholder="자재코드를 입력하세요."/> -->
+                        <ComboBox id="MatcodeComboBox" 
+                                width="250px"
+                                placeholder="자재코드를 선택하세요" 
+                                showSecondaryValues= "true"
+                                items="{
+                                            path: 'filteredStock>/',
+                                            sorter: { path: 'matnr' }
+                                        }">
+                            <core:ListItem key="{filteredStock>matnr}" text="{filteredStock>matnr}" additionalText="{filteredStock>maktx}" />
+                        </ComboBox>
+                    </HBox>
+                    <!-- HBox로 버튼을 오른쪽 끝에 정렬 -->
+                    <HBox justifyContent="End">
+                        <Button text="조회" class="btn_black"  icon="sap-icon://search" press="onSearch" />
+                        <Text text="　"/>
+                        <Button text="초기화" class="btn_black" icon="sap-icon://refresh" press="onReset" />
+                    </HBox>
+                </VBox>
+            </Panel>
+        </vl:Grid>
+
+        <vl:Grid defaultSpan="XL12 L12 M12 S12" width="100%" >
+
+            <Panel class="fullHeightPanel">
+                <headerToolbar>
+                    <Toolbar class="customToolbar">
+                        <Label text="재고관리 리스트" design="Bold"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <t:Table rows="{/StockSet}" id="docList" class="" selectionMode="None"
+                        paste="onPaste" ariaLabelledBy="title">
+                    <!-- title -->
+                    <!-- <t:extension>
+                        <HBox class='justify_between mb_1 w_full_c'>
+                            <OverflowToolbar style="Clear" >
+                                <HBox class=" justify_between w_full">
+                                    <Title id="title" text="재고 리스트" class="bold"/>
+                                    <HBox >
+                                        <Input id="IMatnr" placeholder="자재코드" width="15rem" />
+                                        <Button icon="sap-icon://search" press="onSearch" />
+                                    </HBox>
+                                </HBox>
+                            </OverflowToolbar>
                         </HBox>
-                    </OverflowToolbar>
-                </HBox>
-            </t:extension>
-            <!-- 행 -->
-            <t:columns >
-                <t:Column width="7rem" hAlign="Center">
-                    <Label text="자재코드" class="boldr" />
-                    <t:template>
-                        <Text text="{matnr}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="7rem" hAlign="Center">
-                    <Label text="창고코드" class="bold" />
-                    <t:template>
-                        <Text text="{scode}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <!-- <t:Column
-                    id="bdatu"
-                    width="7rem">
-                    <Label text="생성일" />
-                    <t:template>
-                        <Text text="{
-                            path: 'bdatu',
-                            type: 'sap.ui.model.type.Date',
-                            formatOptions: {pattern: 'yyyy-MM-dd'}
-                        }" wrapping="false" />
-                    </t:template>
-                </t:Column> -->
-                <t:Column>
-                    <Label text="자재명" class="bold" />
-                    <t:template >
-                        <Text class="bg_color"  text="{maktx}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="7rem" hAlign="Center">
-                    <Label text="아이템 리스트" class="bold" />
-                    <t:template >
-						<!-- <Button text="SHOW" class="btn" ariaHasPopup="Dialog" press="onItembtn"/> -->
-		                <Button text="SHOW" class="btn" press=".onOpenDialog" ariaHasPopup="Dialog" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="5rem" hAlign="Center">
-                    <Label text="현재 재고" class="bold" />
-                    <t:template>
-                        <Text text="{h_rtptqua}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="5rem" hAlign="Center">
-                    <Label text="예약 재고" class="bold" />
-                    <t:template>
-                        <Text text="{h_resmat}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="3rem" hAlign="Center">
-                    <Label text="단위" class="bold" />
-                    <t:template>
-                        <Text text="{meins}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="7rem" hAlign="Center" >
-                    <Label text="창고명" class="bold" />
-                    <t:template>
-                        <Text text="{sname}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="18rem" hAlign="Center">
-                    <Label text="소재지" class="bold" />
-                    <t:template>
-                        <Text class="bg_color" text="{address}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-            </t:columns>
-        </t:Table>
+                    </t:extension> -->
+                    <!-- 행 -->
+                    <t:columns >
+                        <t:Column width="7rem" hAlign="Center">
+                            <Label text="자재코드" class="bold" />
+                            <t:template>
+                                <Text text="{matnr}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="7rem" hAlign="Center">
+                            <Label text="창고코드" class="bold" />
+                            <t:template>
+                                <Text text="{scode}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column>
+                            <Label text="자재명" class="bold" />
+                            <t:template >
+                                <Text class="bg_color"  text="{maktx}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="7rem" hAlign="Center">
+                            <Label text="아이템 리스트" class="bold" />
+                            <t:template >
+                                <!-- <Button text="SHOW" class="btn" ariaHasPopup="Dialog" press="onItembtn"/> -->
+                                <Button text="SHOW" class="btn" press=".onOpenDialog" ariaHasPopup="Dialog" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="7rem" hAlign="Center" >
+                            <Label text="창고명" class="bold" />
+                            <t:template>
+                                <Text text="{sname}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="18rem" hAlign="Center">
+                            <Label text="소재지" class="bold" />
+                            <t:template>
+                                <Text class="bg_color" text="{address}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="5rem" hAlign="Center">
+                            <Label text="현재 재고" class="bold" />
+                            <t:template>
+                                <Text text="{h_rtptqua}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="5rem" hAlign="Center">
+                            <Label text="예약 재고" class="bold" />
+                            <t:template>
+                                <Text text="{h_resmat}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="3rem" hAlign="Center">
+                            <Label text="단위" class="bold" />
+                            <t:template>
+                                <Text text="{meins}" wrapping="false" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                </t:Table>
+
+            </Panel>
+        </vl:Grid>
     </Page>
 </mvc:View>
