@@ -18,15 +18,12 @@
 				<ux:expandedHeading>
 					<HBox>
 						<Title text="자재문서 조회" wrapping="true"/>
-						<!-- <ObjectMarker type="Flagged" class="sapUiTinyMarginBegin"/> -->
 					</HBox>
 				</ux:expandedHeading>
 
 				<ux:snappedHeading>
 					<FlexBox  fitContainer="true" alignItems="Center">
-						<!-- <Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/> -->
 						<Title text="자재문서 조회" wrapping="true"/>
-						<!-- <ObjectMarker type="Flagged" class="sapUiTinyMarginBegin"/> -->
 					</FlexBox>
 				</ux:snappedHeading>
 
@@ -111,33 +108,6 @@
 				<ux:subSections>
 					<ux:ObjectPageSubSection titleUppercase="false">
 						<ux:blocks>
-                            <!-- 입출고 현황 차트 -->
-                            <!-- <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
-                                 width="100%" vizType='donut' vizProperties="{ title: {text : '창고코드별 입출고 현황', visible : true}}">
-                                <viz:dataset>
-                                    <viz.data:FlattenedDataset data="{Doc>/DocSet}">
-                                        <viz.data:dimensions>
-                                            <viz.data:DimensionDefinition name="StoreName"
-                                                value="{Doc>scode}" />
-                                            <viz.data:DimensionDefinition name="MoveType"
-                                                value="{Doc>movetype_string}" />
-                                        </viz.data:dimensions>
-                                        <viz.data:measures>
-                                            <viz.data:MeasureDefinition name="Revenue"
-                                                value="{Doc>type2}" />
-                                        </viz.data:measures>
-                                    </viz.data:FlattenedDataset>
-                                </viz:dataset>
-
-                                <viz:feeds>
-                                    <viz.feeds:FeedItem uid="size" type="Measure" values="Revenue" />
-                                    <viz.feeds:FeedItem uid="color" type="Dimension" values="MoveType" />
-                                    <viz.feeds:FeedItem uid="color" type="Dimension" values="StoreName" />
-                                </viz:feeds>
-                                <viz:dependents>
-                                    <viz:Popover id="idPopOver"></viz:Popover>
-                                </viz:dependents>
-                            </viz:VizFrame> -->
 
                             <!-- LINE -->
                               <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
@@ -171,9 +141,6 @@
                                 </viz:dependents>
                             </viz:VizFrame>
 						</ux:blocks>
-                            <!-- <HBox class="absolute">
-                                <Text text="st01 : 원자재창고"/>
-                            </HBox> -->
 					</ux:ObjectPageSubSection>
 				</ux:subSections>
 			</ux:ObjectPageSection>
